@@ -13,3 +13,22 @@ Using a fake robot as the receiver of messages.
 #   where X and Y are from the entry box.
 #
 # Implement and test.
+
+import mqtt_remote_method_calls as com
+import time
+
+
+def main():
+    name1 = input("Enter one name (subscriber): ")
+    name2 = input("Enter another name (publisher): ")
+
+    mqtt_client = com.MqttClient()
+    mqtt_client.connect(name1, name2)
+    time.sleep(1)  # Time to allow the MQTT setup.
+    print()
+
+    while True:
+        s = input("Enter a message: ")
+        mqtt_client.send_message("say_it", [s])
+
+main()
